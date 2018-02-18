@@ -135,7 +135,7 @@ void check_for_operators_at_front(string &word)
 					word = word.substr(word_iter + 1, word.size());
 					found_op = true;
 					fake_lexer(op_to_lex);
-					word_iter++;
+					//word_iter++;
 				}
 			}
 			if (!found_op)
