@@ -20,43 +20,47 @@ using namespace std;
 
 */
 
+struct Token
+{
+	string token;
+	string lexeme;
+};
 
 //Daniels Functions
-void fake_lexer(string to_lex);
 string get_source_string(string file_name);
 string find_word_to_lex(string source, int & iter);
 void skip_comments(string source, int & iter);
 void skip_white_space(string source, int & iter);
-void check_for_operators_and_pass_to_lexer(string &word);
+/*void check_for_operators_and_pass_to_lexer(string &word);
 void check_for_operators_at_front(string &word);
-void check_for_operators_at_back(string &word);
+void check_for_operators_at_back(string &word);*/
 
 //Carlos's function
 bool isSeperator(char to_lex);
 bool isOperator(char to_lex);
 char isLang(char lex_char);
+bool isKeyword(string word);
 list<string> split_lex_word(string lex);
-
-//Arrays of keywords and operators
+list<Token> lexer(string lexWord);
 const int KEYWORD_LIST_SIZE = 13;
 const string keyword_list[KEYWORD_LIST_SIZE] = { "function", "int", "boolean", "real", "if", "endif", "else", "return", "put", "get", "while", "true", "false" };
 //
 
 const int OPERATOR_LIST_SIZE = 12;
-const int SEPERATOR_LIST_SIZE = 10;
-const char operator_list[OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/', ':', '==', '^=', '>', '<', '=>', '=<'};
-const char seperator_list[SEPERATOR_LIST_SIZE] = { ',', ';', '{', '}', '%%','(', ')', '[', ']', ':' };
+const int SEPERATOR_LIST_SIZE = 9;
+const char operator_list[OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/', ':', '=', '^', '>', '<', '%', '!' };
+const char seperator_list[SEPERATOR_LIST_SIZE] = { ',', ';', '{', '}','(', ')', '[', ']', ':' };
 
 const int colSize = 5;
 
 //my temp fsm will change when needed
-const int fsm[][colSize] ={			//row number
+const int fsm[][colSize] = {			//row number
 	{ 1, 2,  3, NULL, NULL },		// 1
 	{ 2, 4, 5, 6, NULL },			// 2
 	{ 3, NULL, 3, NULL, 7 },		// 3
 	{ 4, 4, 5, 6, NULL },			// 4
 	{ 5, 4, 5, 6, NULL },			// 5
-	{ 6, NULL, NULL, NULL, NULL},	// 6
+	{ 6, NULL, NULL, NULL, NULL },	// 6
 	{ 7, NULL, 8, NULL, NULL },		// 7
 	{ 8, NULL, 8, NULL, NULL },		// 8
 };
@@ -76,77 +80,168 @@ void main()
 	{
 		word_to_lex = find_word_to_lex(source_string, source_iter);
 		skip_white_space(source_string, source_iter);
-		if (word_to_lex.size() == 1)
+		list<Token> tokenList;
+		tokenList = lexer(word_to_lex);
+		while (tokenList.size() != 0)
 		{
-			fake_lexer(word_to_lex);
+			Token tmp = tokenList.front();
+			tokenList.pop_front();
+			cout << tmp.token << "\t" << tmp.lexeme << "\n" << endl;
+
 		}
-		else
-		{
-			check_for_operators_and_pass_to_lexer(word_to_lex);
-		}
+
 	}
 }
 
-void fake_lexer(string to_lex)
+list<Token> lexer(string lexWord)
 {
 	//Get word from main
 	//parse the word using check_for_operators_and_pass_to_lexer(word_to_lex)
-	
+
 	//split this into an array or linked list of token items
 	//check token for digit or letter if so pass fsm
 	//then cjeck token for length one operator from operator list
 	// then check token for length two operator from op list
 	// if token length 3 or more pass to FSM
 
-	int iter = 0;
+	//need function that does the transition;
+	//Would be it okay to hard code this?
+	//Current transition function ideas
+	//Determine the current state
+	//from that state identify possible state transitions 
+	//continue until the word has been read fully.
 
-	//Special case for Seperators at both ends of string if we solve this special case first it will be easier to solve other cases
-	if (isSeperator(to_lex[iter]) && isSeperator(to_lex[to_lex.length()-1]))
+	list<string> lexStrings = split_lex_word(lexWord);
+	list<Token> tokenList;
+	while (lexStrings.size() != 0)
 	{
-		//need to create struct token that holds two strings to do output
-		cout << "Seperator \t" << to_lex[iter] << endl;
-		iter++;
-		
-		//then checks to see if next char is digit or letter
-		if (isdigit(to_lex[iter]) || isalpha(to_lex[iter]))
+		string word = lexStrings.front();
+		Token lex;
+		//This handles seperators/operators of length one bypasses FSM
+		if (word.size() == 1)
 		{
-			int state = 1;
-			int stateArray[colSize];
-			for (iter; iter < to_lex.size(); iter++)
+			if (isSeperator(word[0]))
 			{
-				//need function that does the transition;
-				//Would be it okay to hard code this?
-				//Current transition function ideas
-				//Determine the current state
-				//from that state identify possible state transitions 
-				//continue until the word has been read fully.
+				lex.token = "Seperator";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+				continue;
+			}
+			if (isOperator(word[0]))
+			{
+				lex.token = "Operator";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+				continue;
+			}
+		}
+		else if (word.size() == 2)
+		{
 
+			if (isOperator(word[0]))
+			{
+				if (word == "%%")
+				{
+					lex.token = "Main\t";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+					continue;
+				}
+				else
+				{
+					lex.token = "Operator";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
 
 			}
 
-
-			//go to FSM
 		}
-		cout << "Seperator \t" << to_lex[to_lex.length() - 1]<< endl;
-
-	}
-	else if (isdigit(to_lex[iter]) || isalpha(to_lex[iter]))
-	{
-		int state = 1;
-		for (iter; iter < to_lex.size(); iter++)
+		else if (word.size() >= 3)
 		{
-			//need function that does the transition;
-			//Would be it okay to hard code this?
-			//Current transition function ideas
-			//Determine the current state
-			//from that state identify possible state transitions 
-			//continue until the word has been read fully.
+			//Starting state 
+			int state = 1;
+			int stIndex = 0;
+
+			//FSM implemenation
+			for (int i = 0; i < word.size(); i++)
+			{
+				char currChar = isLang(word[i]);
+				switch (currChar)
+				{
+				case 'l':
+					state = fsm[stIndex][1];
+					stIndex = state - 1;
+					break;
+				case 'd':
+					state = fsm[stIndex][2];
+					stIndex = state - 1;
+					break;
+				case '$':
+					state = fsm[stIndex][3];
+					stIndex = state - 1;
+					break;
+				case '.':
+					state = fsm[stIndex][4];
+					stIndex = state - 1;
+					break;
+				default:
+					cout << "Character is not part of language" << endl;
+					break;
+				}
+			}
+
+			if (state == 2 || state == 4 || state == 6)
+			{
+				if (isKeyword(word))
+				{
+					lex.token = "KeyWord\t";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
+				else
+				{
+					lex.token = "Identifier";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
+
+			}
+			else if (state == 3)
+			{
+				lex.token = "Integer";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+			}
+			else if (state == 8)
+			{
+				lex.token = "Real\t";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+			}
 
 
 		}
 
+
+
+
+		//need to check 
+		//lexStrings.pop_front();
 	}
-	return;
+	return tokenList;
+
+
+
+
 }
 
 //Function that determines if a characters is part of language/FSM
@@ -189,10 +284,11 @@ list<string> split_lex_word(string lex)
 
 	//was gunna use this for error checking
 	//int sep_count = 0;
-	//int op_count = 0;
+	int op_count = 0;
 
 	string word = "";
 	string number = "";
+	string op = "";
 
 	for (unsigned int i = 0; i < lex.size(); i++)
 	{
@@ -205,16 +301,28 @@ list<string> split_lex_word(string lex)
 		}
 		else if (isOperator(lex[i]))
 		{
-			//op_count++;
+			//need to make special case for 2 ops next to each other
 			//creating a string to put into string list
-			string op(1, lex[i]);
-			lexWord.push_back(op);
+			op.push_back(lex[i]);
+			if (isOperator(lex[i + 1]))
+			{
+				op.push_back(lex[i + 1]);
+				//fix this
+				i++;
+				lexWord.push_back(op);
+				op.clear();
+			}
+			else
+			{
+				lexWord.push_back(op);
+				op.clear();
+			}
 		}
-		else if (isalpha(lex[i]))
+		else if (isalpha(lex[i]) || lex[i] == '$')
 		{
 			//this is assuming that 
 			word.push_back(lex[i]);
-			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]))
+			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
 				lexWord.push_back(word);
 				word.clear();
@@ -222,18 +330,14 @@ list<string> split_lex_word(string lex)
 			}
 
 		}
-		else if (isdigit(lex[i]))
+		else if (isdigit(lex[i]) || lex[i] == '.')
 		{
 			number.push_back(lex[i]);
-			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]))
+			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
-				lexWord.push_back(word);
-				word.clear();
+				lexWord.push_back(number);
+				number.clear();
 
-			}
-			else if (lex[i + 1] == '.')
-			{
-				number.push_back(lex[i + 1]);
 			}
 
 		}
@@ -253,6 +357,19 @@ list<string> split_lex_word(string lex)
 	return lexWord;
 }
 
+bool isKeyword(string word)
+{
+	for (int i = 0; i < KEYWORD_LIST_SIZE; i++)
+	{
+		if (word == keyword_list[i])
+		{
+			return true;
+
+		}
+
+	}
+	return false;
+}
 
 //boolean function that checks to see if to_lex is an operator
 bool isOperator(char to_lex)
@@ -345,14 +462,14 @@ void skip_comments(string source, int & iter)
 	skip_white_space(source, iter);
 }
 
-void check_for_operators_and_pass_to_lexer(string &word)
+/*void check_for_operators_and_pass_to_lexer(string &word)
 {
 	check_for_operators_at_front(word);
 	check_for_operators_at_back(word);
-}
+}*/
 
 
-void check_for_operators_at_front(string &word)
+/*void check_for_operators_at_front(string &word)
 {
 	if (word.size() > 1)
 		{
@@ -416,4 +533,4 @@ void check_for_operators_at_back(string &word)
 			fake_lexer(found_ops_vect[i]);
 		}
 	}
-}
+}*/
