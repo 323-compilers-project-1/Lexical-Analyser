@@ -10,12 +10,21 @@
 
 using namespace std;
 
+struct Token
+{
+	string token;
+	string lexeme;
+};
+
+
+
 //Carlos's function
 bool isSeperator(char to_lex);
 bool isOperator(char to_lex);
 char isLang(char lex_char);
+bool isKeyWord(string word);
 list<string> split_lex_word(string lex);
-//list<Token> lexer(string lexWord);
+list<Token> lexer(string lexWord);
 const int KEYWORD_LIST_SIZE = 13;
 const string keyword_list[KEYWORD_LIST_SIZE] = { "function", "int", "boolean", "real", "if", "endif", "else", "return", "put", "get", "while", "true", "false" };
 //
@@ -39,22 +48,17 @@ const int fsm[][colSize] = {			//row number
 	{ 8, NULL, 8, NULL, NULL },		// 8
 };
 
-struct Token
-{
-	string token;
-	string lexeme;
-};
 
 
 int main()
 {
-	string lexWord = "%% <= >= == = > < != ^=";
-	list<string> test = split_lex_word(lexWord);
+	string lexWord = "%% ^= {} [] == != 1.2 int true return : ;";
+	list<Token> test = lexer(lexWord);
 	while (test.size() != 0)
 	{
-		string tmp = test.front();
+		Token tmp = test.front();
 		test.pop_front();
-		cout << tmp<< endl;
+		cout << tmp.token << "\t" << tmp.lexeme << "\n" <<endl;
 
 	}
 
@@ -138,7 +142,7 @@ list<string> split_lex_word(string lex)
 		{
 			//this is assuming that 
 			word.push_back(lex[i]);
-			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]))
+			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
 				lexWord.push_back(word);
 				word.clear();
@@ -146,18 +150,14 @@ list<string> split_lex_word(string lex)
 			}
 
 		}
-		else if (isdigit(lex[i]))
+		else if (isdigit(lex[i]) || lex[i] == '.')
 		{
 			number.push_back(lex[i]);
-			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]))
+			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
-				lexWord.push_back(word);
-				word.clear();
+				lexWord.push_back(number);
+				number.clear();
 
-			}
-			else if (lex[i + 1] == '.')
-			{
-				number.push_back(lex[i + 1]);
 			}
 
 		}
@@ -209,7 +209,23 @@ bool isSeperator(char to_lex)
 	return false;
 
 }
-/*list<Token> lexer(string lexWord)
+
+bool isKeyword(string word)
+{
+	for (int i = 0; i < KEYWORD_LIST_SIZE; i++)
+	{
+		if (word == keyword_list[i])
+		{
+			return true;
+
+		}
+
+	}
+	return false;
+}
+
+
+list<Token> lexer(string lexWord)
 {
 	//Get word from main
 	//parse the word using check_for_operators_and_pass_to_lexer(word_to_lex)
@@ -241,6 +257,7 @@ bool isSeperator(char to_lex)
 				lex.token = "Seperator";
 				lex.lexeme = word;
 				tokenList.push_back(lex);
+				lexStrings.pop_front();
 				continue;
 			}
 			if (isOperator(word[0]))
@@ -248,8 +265,102 @@ bool isSeperator(char to_lex)
 				lex.token = "Operator";
 				lex.lexeme = word;
 				tokenList.push_back(lex);
+				lexStrings.pop_front();
 				continue;
 			}
+		}
+		else if (word.size() == 2)
+		{
+
+			if (isOperator(word[0]))
+			{
+				if (word == "%%")
+				{
+					lex.token = "Main\t";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+					continue;
+				}
+				else
+				{
+					lex.token = "Operator";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
+		
+			}
+
+		}
+		else if (word.size() >= 3)
+		{
+			//Starting state 
+			int state = 1;
+			int stIndex = 0;
+
+			//FSM implemenation
+			for (int i = 0; i < word.size(); i++)
+			{
+				char currChar = isLang(word[i]);
+				switch (currChar)
+				{
+					case 'l':
+						state = fsm[stIndex][1];
+						stIndex = state - 1;
+						break;
+					case 'd':
+						state = fsm[stIndex][2];
+						stIndex = state - 1;
+						break;
+					case '$':
+						state = fsm[stIndex][3];
+						stIndex = state - 1;
+						break;
+					case '.':
+						state = fsm[stIndex][4];
+						stIndex = state - 1;
+						break;
+					default:
+						cout << "Character is not part of language" << endl;
+						break;
+				}
+			}
+
+			if (state == 2 || state == 4 || state == 6)
+			{
+				if (isKeyword(word))
+				{
+					lex.token = "KeyWord\t";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
+				else
+				{
+					lex.token = "Identifier";
+					lex.lexeme = word;
+					tokenList.push_back(lex);
+					lexStrings.pop_front();
+				}
+
+			}
+			else if (state == 3)
+			{
+				lex.token = "Integer";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+			}
+			else if (state == 8)
+			{
+				lex.token = "Real\t";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+			}
+
+
 		}
 
 
@@ -258,11 +369,12 @@ bool isSeperator(char to_lex)
 		//need to check 
 		//lexStrings.pop_front();
 	}
+	return tokenList;
 
 
 
 
-}*/
+}
 /*void fake_lexer(string to_lex)
 {
 	//Get word from main
