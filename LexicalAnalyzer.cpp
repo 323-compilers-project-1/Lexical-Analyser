@@ -191,16 +191,16 @@ list<string> split_lex_word(string lex)
 	//int sep_count = 0;
 	//int op_count = 0;
 
-	string word ="";
+	string word = "";
 	string number = "";
 
-	for (int i = 0; i < lex.size(); i++)
+	for (unsigned int i = 0; i < lex.size(); i++)
 	{
 		if (isSeperator(lex[i]))
 		{
 			//creating a string to put into string list
 			//sep_count++;
-			string sep(1,lex[i]);
+			string sep(1, lex[i]);
 			lexWord.push_back(sep);
 		}
 		else if (isOperator(lex[i]))
@@ -237,9 +237,16 @@ list<string> split_lex_word(string lex)
 			}
 
 		}
+	}
+	//I added this just to check if the strings got cleared
+	if (word != "")
+	{
+		lexWord.push_back(word);
+	}
+
+	if (number != "")
+	{
 		lexWord.push_back(number);
-
-
 	}
 
 
