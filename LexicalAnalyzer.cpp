@@ -1,7 +1,5 @@
 // LexicalAnalyzer.cpp : Defines the entry point for the console application.
 //
-
-#include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -31,9 +29,6 @@ string get_source_string(string file_name);
 string find_word_to_lex(string source, int & iter);
 void skip_comments(string source, int & iter);
 void skip_white_space(string source, int & iter);
-/*void check_for_operators_and_pass_to_lexer(string &word);
-void check_for_operators_at_front(string &word);
-void check_for_operators_at_back(string &word);*/
 
 //Carlos's function
 bool isSeperator(char to_lex);
@@ -42,14 +37,16 @@ char isLang(char lex_char);
 bool isKeyword(string word);
 list<string> split_lex_word(string lex);
 list<Token> lexer(string lexWord);
+
 const int KEYWORD_LIST_SIZE = 13;
 const string keyword_list[KEYWORD_LIST_SIZE] = { "function", "int", "boolean", "real", "if", "endif", "else", "return", "put", "get", "while", "true", "false" };
-//
 
-const int OPERATOR_LIST_SIZE = 12;
+const int SIZE_ONE_OPERATOR_LIST_SIZE = 12;
+const int SIZE_TWO_OPERATOR_LIST_SIZE = 4;
 const int SEPERATOR_LIST_SIZE = 9;
-const char operator_list[OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/', ':', '=', '^', '>', '<', '%', '!' };
 const char seperator_list[SEPERATOR_LIST_SIZE] = { ',', ';', '{', '}','(', ')', '[', ']', ':' };
+const char size_one_operator_list[SIZE_ONE_OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/', ':', '=', '^', '>', '<', '%', '!' };
+const string size_two_operator_list[10] = { "==", "^=", "=>", "=<"};
 
 const int colSize = 5;
 
@@ -70,27 +67,36 @@ void main()
 	cout << "Enter name of source file to parse: ";
 	string file_name;
 	cin >> file_name;
-	cout << endl << endl;
 
 	string source_string = get_source_string(file_name);
 
 	int source_iter = 0;
 	string word_to_lex;
+
+	string output_name;
+	cout << "Output File Name: ";
+	cin >> output_name;
+	ofstream output_file;
+	output_file.open(output_name);
+
 	while (source_iter <  source_string.length())
 	{
 		word_to_lex = find_word_to_lex(source_string, source_iter);
 		skip_white_space(source_string, source_iter);
 		list<Token> tokenList;
 		tokenList = lexer(word_to_lex);
+
 		while (tokenList.size() != 0)
 		{
 			Token tmp = tokenList.front();
 			tokenList.pop_front();
-			cout << tmp.token << "\t" << tmp.lexeme << "\n" << endl;
+			output_file << tmp.token + "\t" + tmp.lexeme + "\n";
 
 		}
 
 	}
+
+	output_file.close();
 }
 
 list<Token> lexer(string lexWord)
@@ -126,7 +132,6 @@ list<Token> lexer(string lexWord)
 				lex.lexeme = word;
 				tokenList.push_back(lex);
 				lexStrings.pop_front();
-				continue;
 			}
 			if (isOperator(word[0]))
 			{
@@ -134,34 +139,50 @@ list<Token> lexer(string lexWord)
 				lex.lexeme = word;
 				tokenList.push_back(lex);
 				lexStrings.pop_front();
-				continue;
 			}
-		}
-		else if (word.size() == 2)
-		{
-
-			if (isOperator(word[0]))
+			if (isdigit(word[0])) 
 			{
-				if (word == "%%")
-				{
-					lex.token = "Main\t";
-					lex.lexeme = word;
-					tokenList.push_back(lex);
-					lexStrings.pop_front();
-					continue;
-				}
-				else
-				{
-					lex.token = "Operator";
-					lex.lexeme = word;
-					tokenList.push_back(lex);
-					lexStrings.pop_front();
-				}
-
+				lex.token = "Integer\t";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
 			}
-
+			if (isalpha(word[0]))
+			{
+				lex.token = "Identifier\t";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+			}
 		}
-		else if (word.size() >= 3)
+
+		bool operator_found = false;
+		if (word.size() == 2)
+		{
+			if (word == "%%")
+			{
+				lex.token = "Integer\t";
+				lex.lexeme = word;
+				tokenList.push_back(lex);
+				lexStrings.pop_front();
+				operator_found = true;
+			}
+			if (!operator_found)
+			{
+				for (int i = 0; i < SIZE_TWO_OPERATOR_LIST_SIZE; i++)
+				{
+					if (word == size_two_operator_list[i])
+					{
+						lex.token = "Operator";
+						lex.lexeme = word;
+						tokenList.push_back(lex);
+						lexStrings.pop_front();
+						operator_found = true;
+					}
+				}
+			}
+		}
+		if (word.size() > 1 && !operator_found)
 		{
 			//Starting state 
 			int state = 1;
@@ -215,7 +236,7 @@ list<Token> lexer(string lexWord)
 			}
 			else if (state == 3)
 			{
-				lex.token = "Integer";
+				lex.token = "Integer\t";
 				lex.lexeme = word;
 				tokenList.push_back(lex);
 				lexStrings.pop_front();
@@ -231,17 +252,10 @@ list<Token> lexer(string lexWord)
 
 		}
 
-
-
-
 		//need to check 
 		//lexStrings.pop_front();
 	}
 	return tokenList;
-
-
-
-
 }
 
 //Function that determines if a characters is part of language/FSM
@@ -353,7 +367,6 @@ list<string> split_lex_word(string lex)
 		lexWord.push_back(number);
 	}
 
-
 	return lexWord;
 }
 
@@ -374,9 +387,9 @@ bool isKeyword(string word)
 //boolean function that checks to see if to_lex is an operator
 bool isOperator(char to_lex)
 {
-	for (int i = 0; i < OPERATOR_LIST_SIZE; i++)
+	for (int i = 0; i < SIZE_ONE_OPERATOR_LIST_SIZE; i++)
 	{
-		if (to_lex == operator_list[i])
+		if (to_lex == size_one_operator_list[i])
 		{
 			return true;
 
@@ -461,76 +474,3 @@ void skip_comments(string source, int & iter)
 	iter++;
 	skip_white_space(source, iter);
 }
-
-/*void check_for_operators_and_pass_to_lexer(string &word)
-{
-	check_for_operators_at_front(word);
-	check_for_operators_at_back(word);
-}*/
-
-
-/*void check_for_operators_at_front(string &word)
-{
-	if (word.size() > 1)
-		{
-		bool start_of_word = false;
-		int word_iter = 0;
-		while (!start_of_word && word_iter < word.size())
-			{
-			bool found_op = false;
-			for (int op_iter = 0; op_iter < OPERATOR_LIST_SIZE; op_iter++)
-				{
-					if (word[word_iter] == operator_list[op_iter])
-					 {
-					string op_to_lex = word.substr(word_iter, word_iter + 1);
-					word = word.substr(word_iter + 1, word.size());
-					found_op = true;
-					fake_lexer(op_to_lex);
-					word_iter++;
-					}
-				}
-			if (!found_op)
-				{
-				start_of_word = true;
-				}
-			}
-		}
-	}
-
-void check_for_operators_at_back(string &word)
-{
-	if (word.size() > 1)
-	{
-		vector<string> found_ops_vect;
-		bool end_of_word = false;
-		int word_iter = word.size() - 1;
-		if (word[word_iter] == '$')
-		{
-			end_of_word = true;
-		}
-		while (!end_of_word && word_iter > 0)
-		{
-			bool found_op = false;
-			for (int op_iter = 0; op_iter < OPERATOR_LIST_SIZE; op_iter++)
-			{
-				if (word[word_iter] == operator_list[op_iter])
-				{
-					string op_to_lex = word.substr(word_iter, word.size());
-					word = word.substr(0, word_iter);
-					found_op = true;
-					found_ops_vect.push_back(op_to_lex);
-					word_iter--;
-				}
-			}
-			if (!found_op)
-			{
-				end_of_word = true;
-			}
-		}
-		fake_lexer(word);
-		for (int i = 0; i < found_ops_vect.size(); i++)
-		{
-			fake_lexer(found_ops_vect[i]);
-		}
-	}
-}*/
