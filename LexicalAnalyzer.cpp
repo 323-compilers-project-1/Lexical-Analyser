@@ -44,8 +44,8 @@ const string keyword_list[KEYWORD_LIST_SIZE] = { "function", "int", "boolean", "
 const int SIZE_ONE_OPERATOR_LIST_SIZE = 12;
 const int SIZE_TWO_OPERATOR_LIST_SIZE = 4;
 const int SEPERATOR_LIST_SIZE = 9;
-const char seperator_list[SEPERATOR_LIST_SIZE] = { ',', ';', '{', '}','(', ')', '[', ']', ':' };
-const char size_one_operator_list[SIZE_ONE_OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/', ':', '=', '^', '>', '<', '%', '!' };
+const char seperator_list[SEPERATOR_LIST_SIZE] = { ',', ';', '{', '}','(', ')', '[', ']'};
+const char size_one_operator_list[SIZE_ONE_OPERATOR_LIST_SIZE] = { '=', '+',  '-', '*', '/',':', '=', '^', '>', '<', '%', '!' };
 const string size_two_operator_list[10] = { "==", "^=", "=>", "=<"};
 
 const int colSize = 5;
@@ -77,14 +77,24 @@ void main()
 	cout << "Output File Name: ";
 	cin >> output_name;
 	ofstream output_file;
-	output_file.open(output_name);
+	output_file.open(output_name, ios::out | std::ofstream::trunc);
 
 	while (source_iter <  source_string.length())
 	{
 		word_to_lex = find_word_to_lex(source_string, source_iter);
 		skip_white_space(source_string, source_iter);
-		list<Token> tokenList;
-		tokenList = lexer(word_to_lex);
+		list<Token> tokenList;	
+		
+		try
+		{
+			tokenList = lexer(word_to_lex);
+		}
+		catch (...)
+		{
+			output_file << "Compiler Error: Check Source for Syntax Errors";
+			output_file.close();
+			exit(1);
+		}
 
 		while (tokenList.size() != 0)
 		{
@@ -93,7 +103,6 @@ void main()
 			output_file << tmp.token + "\t" + tmp.lexeme + "\n";
 
 		}
-
 	}
 
 	output_file.close();
@@ -117,7 +126,8 @@ list<Token> lexer(string lexWord)
 	//from that state identify possible state transitions 
 	//continue until the word has been read fully.
 
-	list<string> lexStrings = split_lex_word(lexWord);
+	list<string> lexStrings;
+	lexStrings = split_lex_word(lexWord);
 	list<Token> tokenList;
 	while (lexStrings.size() != 0)
 	{
@@ -161,7 +171,7 @@ list<Token> lexer(string lexWord)
 		{
 			if (word == "%%")
 			{
-				lex.token = "Integer\t";
+				lex.token = "Operator";
 				lex.lexeme = word;
 				tokenList.push_back(lex);
 				lexStrings.pop_front();
@@ -211,7 +221,7 @@ list<Token> lexer(string lexWord)
 					stIndex = state - 1;
 					break;
 				default:
-					cout << "Character is not part of language" << endl;
+					throw "token_error";
 					break;
 				}
 			}
@@ -295,19 +305,21 @@ list<string> split_lex_word(string lex)
 
 	//list that will hold the list of strings for the lexer to parse
 	list<string> lexWord;
-
-	//was gunna use this for error checking
-	//int sep_count = 0;
-	int op_count = 0;
-
 	string word = "";
 	string number = "";
 	string op = "";
+
+	bool start_of_word = false;
+	bool end_of_word = false;
 
 	for (unsigned int i = 0; i < lex.size(); i++)
 	{
 		if (isSeperator(lex[i]))
 		{
+			if (start_of_word == true && lex[i] != ':')
+			{
+				end_of_word = true;
+			}
 			//creating a string to put into string list
 			//sep_count++;
 			string sep(1, lex[i]);
@@ -315,13 +327,16 @@ list<string> split_lex_word(string lex)
 		}
 		else if (isOperator(lex[i]))
 		{
+			if (start_of_word == true && lex[i] != ':')
+			{
+				end_of_word = true;
+			}
 			//need to make special case for 2 ops next to each other
 			//creating a string to put into string list
 			op.push_back(lex[i]);
 			if (isOperator(lex[i + 1]))
 			{
 				op.push_back(lex[i + 1]);
-				//fix this
 				i++;
 				lexWord.push_back(op);
 				op.clear();
@@ -332,25 +347,22 @@ list<string> split_lex_word(string lex)
 				op.clear();
 			}
 		}
-		else if (isalpha(lex[i]) || lex[i] == '$')
+		else if (isalpha(lex[i]) || lex[i] == '$' || isdigit(lex[i]) || lex[i] == '.')
 		{
+			if (start_of_word == false)
+			{
+				start_of_word = true;
+			}
+			if (end_of_word == true)
+			{
+				throw "token_error";
+			}
 			//this is assuming that 
 			word.push_back(lex[i]);
 			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
 				lexWord.push_back(word);
 				word.clear();
-
-			}
-
-		}
-		else if (isdigit(lex[i]) || lex[i] == '.')
-		{
-			number.push_back(lex[i]);
-			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
-			{
-				lexWord.push_back(number);
-				number.clear();
 
 			}
 
