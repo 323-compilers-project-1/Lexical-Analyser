@@ -238,7 +238,7 @@ list<Token> lexer(string lexWord)
 				}
 				else
 				{
-					lex.token = "Identifier";
+					lex.token = "Identifier\t";
 					lex.lexeme = word;
 					tokenList.push_back(lex);
 					lexStrings.pop_front();
