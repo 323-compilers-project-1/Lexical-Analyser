@@ -62,7 +62,7 @@ const int fsm[][colSize] = {			//row number
 	{ 8, NULL, 8, NULL, NULL },		// 8
 };
 
-void main()
+int main()
 {
 	cout << "Enter name of source file to parse: ";
 	string file_name;
@@ -83,8 +83,8 @@ void main()
 	{
 		word_to_lex = find_word_to_lex(source_string, source_iter);
 		skip_white_space(source_string, source_iter);
-		list<Token> tokenList;	
-		
+		list<Token> tokenList;
+
 		try
 		{
 			tokenList = lexer(word_to_lex);
@@ -106,6 +106,7 @@ void main()
 	}
 
 	output_file.close();
+	return 0;
 }
 
 list<Token> lexer(string lexWord)
@@ -123,7 +124,7 @@ list<Token> lexer(string lexWord)
 	//Would be it okay to hard code this?
 	//Current transition function ideas
 	//Determine the current state
-	//from that state identify possible state transitions 
+	//from that state identify possible state transitions
 	//continue until the word has been read fully.
 
 	list<string> lexStrings;
@@ -150,7 +151,7 @@ list<Token> lexer(string lexWord)
 				tokenList.push_back(lex);
 				lexStrings.pop_front();
 			}
-			if (isdigit(word[0])) 
+			if (isdigit(word[0]))
 			{
 				lex.token = "Integer\t";
 				lex.lexeme = word;
@@ -194,7 +195,7 @@ list<Token> lexer(string lexWord)
 		}
 		if (word.size() > 1 && !operator_found)
 		{
-			//Starting state 
+			//Starting state
 			int state = 1;
 			int stIndex = 0;
 
@@ -262,7 +263,7 @@ list<Token> lexer(string lexWord)
 
 		}
 
-		//need to check 
+		//need to check
 		//lexStrings.pop_front();
 	}
 	return tokenList;
@@ -357,7 +358,7 @@ list<string> split_lex_word(string lex)
 			{
 				throw "token_error";
 			}
-			//this is assuming that 
+			//this is assuming that
 			word.push_back(lex[i]);
 			if (isOperator(lex[i + 1]) || isSeperator(lex[i + 1]) || lex[i + 1] == ' ')
 			{
