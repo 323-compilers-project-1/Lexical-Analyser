@@ -29,6 +29,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	vector<string> tablePos;
 	//Initializing Stack
 	tableStack.push("$");
+	tableStack.push("<Rat18s>")
 	
 	
 	//Might not have to do this
@@ -710,6 +711,1071 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	table.emplace(production, tablePos);
 	tablePos.clear();
 
+#pragma endregion
+
+#pragma region statement
+	production.production = "<Statement>";
+
+	//{
+	production.terminal = "{";
+
+	tablePos.push_back("<Compound>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Assign>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//if
+	production.terminal = "if";
+
+	tablePos.push_back("<If>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//return
+	production.terminal = "return";
+
+	tablePos.push_back("<Return>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//put
+	production.terminal = "put";
+
+	tablePos.push_back("<Print>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//get
+	production.terminal = "get";
+
+	tablePos.push_back("<Scan>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//while
+	production.terminal = "while";
+
+	tablePos.push_back("<While>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Compound
+	production.production = "<Compound>"
+
+		//{
+		production.terminal = "{";
+
+	tablePos.push_back("{");
+	tablePos.push_back("<Statement List>");
+	tablePos.push_back("}");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Assign
+	production.production = "<Assign>";
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("identifier");
+	tablePos.push_back("=");
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region If
+	production.production = "<If>";
+
+	//identifier
+	production.terminal = "if";
+
+	tablePos.push_back("if");
+	tablePos.push_back("(");
+	tablePos.push_back("<Condition>");
+	tablePos.push_back(")");
+	tablePos.push_back("<Statement>");
+	tablePos.push_back("<If Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region If Prime
+	production.production = "<If Prime>";
+
+	//endif
+	production.terminal = "endif";
+
+	tablePos.push_back("endif");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//else
+	production.terminal = "else";
+
+	tablePos.push_back("else");
+	tablePos.push_back("<Statement>");
+	tablePos.push_back("endif");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Return
+	production.production = "<Return>";
+
+	//return	
+	production.terminal = "return";
+
+	tablePos.push_back("return");
+	tablePos.push_back("<Return Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Return Prime
+	production.production = "<Return Prime>";
+
+	//int	
+	production.terminal = "int";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//;
+	production.terminal = ";";
+
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Print
+	production.production = "<Print>";
+
+	//put
+	production.terminal = "put";
+
+	tablePos.push_back("put");
+	tablePos.push_back("(");
+	tablePos.push_back("Expression");
+	tablePos.push_back(")");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Scan
+	production.production = "<Scan>";
+
+	//get
+	production.terminal = "get";
+
+	tablePos.push_back("get");
+	tablePos.push_back("(");
+	tablePos.push_back("<IDs>");
+	tablePos.push_back(")");
+	tablePos.push_back(";");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region While
+	production.production = "<Scan>";
+
+	//while
+	production.terminal = "while";
+
+	tablePos.push_back("while");
+	tablePos.push_back("(");
+	tablePos.push_back("<Condition>");
+	tablePos.push_back(")");
+	tablePos.push_back("<Statement>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Condition
+	production.production = "<Condition>";
+
+	//int
+	production.terminal = "int";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("<Expression>");
+	tablePos.push_back("<Relop>");
+	tablePos.push_back("<Expression>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Relop
+	production.production = "<Relop>";
+
+	//==
+	production.terminal = "==";
+
+	tablePos.push_back("==");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+
+	tablePos.push_back("^=");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+
+	tablePos.push_back(">");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+
+	tablePos.push_back("<");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+
+	tablePos.push_back("=<");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
+
+	tablePos.push_back("=>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Expression
+	production.production = "<Expression>";
+
+	//int
+	production.terminal = "int";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("<Term>");
+	tablePos.push_back("Expression Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Expression Prime
+	production.production = "<Expression Prime>";
+
+	//;
+	production.terminal = ";";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//)
+	production.terminal = ")";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//==
+	production.terminal = "==";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//+
+	production.terminal = "+";
+
+	tablePos.push_back("+");
+	tablePos.push_back("<Term>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//+
+	production.terminal = "-";
+
+	tablePos.push_back("-");
+	tablePos.push_back("<Term>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Term
+	production.production = "<Term>";
+
+	//int
+	production.terminal = "int";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Term Prime
+	production.production = "<Term Prime>";
+
+	//;
+	production.terminal = ";";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//)
+	production.terminal = ")";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//==
+	production.terminal = "==";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//+
+	production.terminal = "+";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//*
+	production.terminal = "*";
+
+	tablePos.push_back("<Term Double Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	// /
+	production.terminal = "/";
+
+	tablePos.push_back("<Term Triple Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Term Double Prime
+	production.production = "<Term Double Prime>";
+
+	//;
+	production.terminal = ";";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//)
+	production.terminal = ")";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//==
+	production.terminal = "==";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//+
+	production.terminal = "+";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//*
+	production.terminal = "*";
+
+	tablePos.push_back("*");
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("Term Double Prime");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Term Triple Prime
+	production.production = "<Term Triple Prime>";
+
+	//;
+	production.terminal = ";";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//)
+	production.terminal = ")";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//==
+	production.terminal = "==";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//+
+	production.terminal = "+";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	// /
+	production.terminal = "/";
+
+	tablePos.push_back("<Factor>");
+	tablePos.push_back("<Term Triple Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Factor
+	production.production = "<Factor>";
+
+	//int
+	production.terminal = "int";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+
+	tablePos.push_back("-");
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("<Primary>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+#pragma endregion
+
+#pragma region Primary
+	production.production = "<Primary>";
+
+	//int
+	production.terminal = "int";
+
+	tablePos.push_back("int");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+
+	tablePos.push_back("real");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//identifier
+	production.terminal = "identifier";
+
+	tablePos.push_back("identifier");
+	tablePos.push_back("<Primary Prime>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("(");
+	tablePos.push_back("<Expression>");
+	tablePos.push_back(")");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//*
+	production.terminal = "*";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	// /
+	production.terminal = "/";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//true
+	production.terminal = "true";
+
+	tablePos.push_back("true");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//false
+	production.terminal = "false";
+
+	tablePos.push_back("false");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+#pragma endregion
+
+#pragma region Primary Prime
+	production.production = "<Primary Prime>";
+
+	//(
+	production.terminal = "(";
+
+	tablePos.push_back("(");
+	ttablePos.push_back("<IDs>");
+	ablePos.push_back(")");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	//*
+	production.terminal = "*";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
+
+	// /
+	production.terminal = "/";
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(production, tablePos);
+	tablePos.clear();
 #pragma endregion
 
 }
