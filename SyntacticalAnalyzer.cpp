@@ -1,6 +1,12 @@
+#include "stdafx.h"
 #include "SyntacticalAnalyzer.h"
 #include <unordered_map>
 #include <string>
+#include <iostream>
+#include <stack>
+#include <queue>
+#include <vector>
+
 
 
 using namespace std;
@@ -10,36 +16,23 @@ struct producitonSet
 {
 string production;
 string lexeme;
-
 };
-
-
 Class data
 unordered_map<producitonSet, vector<string>> table;
 stack<string> tableStack;	//Needs to be initalized with $Rat18s
 queue<string> inputQ;		//Needs to be but at back of queue will be done in overloaded constructor
-
 */
 
 
 #pragma region Constructors
 
-SyntacticalAnalyzer::SyntacticalAnalyzer()
+void SyntacticalAnalyzer::createTable()
 {
-	vector<string> tablePos;
-	//Initializing Stack
-	tableStack.push("$");
-	tableStack.push("<Rat18s>")
-	
-	
-	//Might not have to do this
-	//tableStack.push("Rat18s");
-
-	inputQ.push("$");
 
 #pragma region Rat18s
 
 	//%%
+	vector<string> tablePos;
 	productionSet production;
 	production.production = "<Rat18s>";
 	production.terminal = "%%";
@@ -64,7 +57,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 #pragma endregion
 
 #pragma region Opt Function Definitions
-	
+
 	//%%
 	production.production = "<Opt Function Definitions>";
 	production.terminal = "%%";
@@ -77,7 +70,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 #pragma endregion
 
 #pragma region Function Definitions
-	
+
 	//Function
 	production.production = "<Function Definitions>";
 	production.terminal = "function";
@@ -159,7 +152,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 #pragma endregion
 
 #pragma region Parameter List
-	
+
 	// identifer
 	production.production = "<Parameter List>";
 	production.terminal = "identifer";
@@ -196,7 +189,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 #pragma endregion
 
 #pragma region Parameter
-	
+
 	//identifer
 	production.production = "<Parameter>";
 	production.terminal = "identifer";
@@ -217,7 +210,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	production.terminal = "int";
 
 	tablePos.push_back("int");
-	
+
 	table.emplace(production, tablePos);
 	tablePos.clear();
 
@@ -282,7 +275,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 
 	table.emplace(production, tablePos);
 	tablePos.clear();
-	
+
 	// {
 	production.terminal = "{";
 	tablePos.push_back("<Empty>");
@@ -341,7 +334,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 
 
 
-	
+
 
 #pragma endregion
 
@@ -394,9 +387,9 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	// ;
 	production.terminal = ";";
 
-	tablePos.push_back = ";";
-	tablePos.push_back = "<Declaration>";
-	tablePos.push_back = "<Declaration List Prime>";
+	tablePos.push_back(";");
+	tablePos.push_back("<Declaration>");
+	tablePos.push_back("<Declaration List Prime>");
 
 	table.emplace(production, tablePos);
 	tablePos.clear();
@@ -416,7 +409,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 
 	table.emplace(production, tablePos);
 	tablePos.clear();
-	
+
 	//endif
 	production.terminal = "endif";
 
@@ -533,7 +526,7 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	production.terminal = ")";
 
 	tablePos.push_back("<Empty>");
-	
+
 	table.emplace(production, tablePos);
 	tablePos.clear();
 
@@ -775,10 +768,10 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 #pragma endregion
 
 #pragma region Compound
-	production.production = "<Compound>"
+	production.production = "<Compound>";
 
-		//{
-		production.terminal = "{";
+	//{
+	production.terminal = "{";
 
 	tablePos.push_back("{");
 	tablePos.push_back("<Statement List>");
@@ -1755,8 +1748,8 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	production.terminal = "(";
 
 	tablePos.push_back("(");
-	ttablePos.push_back("<IDs>");
-	ablePos.push_back(")");
+	tablePos.push_back("<IDs>");
+	tablePos.push_back(")");
 
 	table.emplace(production, tablePos);
 	tablePos.clear();
@@ -1778,10 +1771,132 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	tablePos.clear();
 #pragma endregion
 
+
+
+
+}
+
+
+SyntacticalAnalyzer::SyntacticalAnalyzer()
+{
+	vector<string> tablePos;
+	//Initializing Stack
+	this->tableStack.push("$");
+	tableStack.push("<Rat18s>");
+
+
+		//Might not have to do this
+		//tableStack.push("Rat18s");
+
+	this->inputQ.push("$");
+
+	this->createTable(); 
+
 }
 
 SyntacticalAnalyzer::SyntacticalAnalyzer(queue<string> inputQ)
 {
+
+	vector<string> tablePos;
+	//Initializing Stack
+	this->tableStack.push("$");
+	tableStack.push("<Rat18s>");
+
+
+	//Might not have to do this
+	//tableStack.push("Rat18s");
+	this->inputQ = inputQ;
+	this->inputQ.push("$");
+
+	this->createTable();
+}
+
+#pragma endregion
+
+
+#pragma  region Table Traversing
+
+//called in main performs all output and stack manipuliation
+void SyntacticalAnalyzer::analyze()
+{
+	//creating iterator in order to use find functions for map
+	unordered_map<productionSet, vector<string>>::iterator got;
+
+	productionSet production;
+
+	// while loop starting here in order to traverse through array based on input
+	//this handles $ to end the syntactical analyzer if there is an error we will use continue or break to end loop and out put corresponding ms
+	while (this->tableStack.top() != "$")
+	{
+		//Simply outputs first
+		if (this->tableStack.top() == "<Rat18s>")
+		{
+			cout << this->tableStack.top() << endl;
+			this->tableStack.pop();
+
+		}
+		else if (this->tableStack.top() == this->inputQ.front())
+		{
+			this->tableStack.pop();
+			this->inputQ.pop();
+			continue;
+
+
+		}
+#pragma region pushing to stack
+
+
+		production.production = tableStack.top();
+		production.terminal = this->inputQ.front();
+
+		got = table.find(production);
+		production.production = got->first.production;
+
+
+		vector<string> cellVector = got->second;
+
+		//if the string vector is empty we simply pop off the an item in the stack
+		if (cellVector[0] == "<Empty>")
+		{
+			
+			//might need to output rule here
+			this->tableStack.pop();
+			continue;
+
+		}
+		else
+		{
+			//this handles pushing thing from the table to the stack in proper order
+			for (int i = cellVector.size(); i > 0; i--)
+			{
+				tableStack.push(cellVector.back());
+				cellVector.pop_back();
+
+			}
+
+		}
+
+
+
+#pragma endregion
+
+
+
+	}
+
+	if (tableStack.top() == inputQ.front())
+	{
+
+		cout << "Correct syntax" << endl;
+
+	}
+	else
+	{
+		cout << "Incorrect input" << endl;
+
+	}
+
+
 
 
 
