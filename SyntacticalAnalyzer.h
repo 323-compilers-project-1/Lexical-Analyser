@@ -28,22 +28,27 @@ struct productionSet
 class SyntacticalAnalyzer
 {
 
-	private:
-		unordered_map<string, vector<string>> table;
-		stack<string> tableStack;	//Needs to be initalized with $Rat18s
-		queue<string> inputQ;		//Needs to be but at back of queue will be done in overloaded constructor
-		
-		//used by constructors
-		void createTable();
+private:
+	unordered_map<string, vector<string>> table;
+	stack<string> tableStack;	//Needs to be initalized with $Rat18s
+	queue<string> inputQ;		//Needs to be but at back of queue will be done in overloaded constructor
+
+								//used by constructors
+	void createTable();
+
+
+	productionSet getProductionSet(string input);
 
 
 
-	public:
-		//Constructors
-		SyntacticalAnalyzer();		//mainly used for error checking in main
-		SyntacticalAnalyzer(queue<string> inputQ);
 
-		void analyze();
+
+public:
+	//Constructors
+	SyntacticalAnalyzer();		//mainly used for error checking in main
+	SyntacticalAnalyzer(queue<string> inputQ);
+
+	void analyze();
 
 
 };

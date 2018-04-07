@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SyntacticalAnalyzer.h"
 #include <unordered_map>
 #include <string>
@@ -2036,6 +2037,7 @@ void SyntacticalAnalyzer::analyze()
 	while (this->tableStack.top() != "$")
 	{
 		//Simply outputs first
+		production.production = tableStack.top();
 		if (this->tableStack.top() == "<Rat18s>")
 		{
 			cout << this->tableStack.top() << endl;
@@ -2044,6 +2046,7 @@ void SyntacticalAnalyzer::analyze()
 		}
 		else if (this->tableStack.top() == this->inputQ.front())
 		{
+			cout << this->tableStack.top() << endl;
 			this->tableStack.pop();
 			this->inputQ.pop();
 			continue;
@@ -2053,13 +2056,19 @@ void SyntacticalAnalyzer::analyze()
 #pragma region pushing to stack
 
 
-		production.production = tableStack.top();
+	
 		production.terminal = this->inputQ.front();
 
 		string prod = production.production + "," + production.terminal; 
 
 		got = table.find(prod);
-		production = getProductionSet(got->first);
+		//production = getProductionSet(got->first);
+		if (got == table.end())
+		{
+
+			cout << prod << "not found" << endl;
+			return;
+		}
 
 
 		vector<string> cellVector = got->second;
@@ -2075,9 +2084,26 @@ void SyntacticalAnalyzer::analyze()
 		}
 		else
 		{
+			if (cellVector.front() == this->inputQ.front() && cellVector.size() ==1)
+			{
+
+
+				cout << this->tableStack.top() << endl;
+				this->tableStack.pop();
+				tableStack.push(cellVector.back());
+				continue;
+
+
+			}
 			//this handles pushing thing from the table to the stack in proper order
 			for (int i = cellVector.size(); i > 0; i--)
 			{
+				if (tableStack.top() != "$" && i < 1)
+				{
+					cout << this->tableStack.top() << endl;
+					tableStack.pop();	//pops production that it finds
+				}
+				
 				tableStack.push(cellVector.back());
 				cellVector.pop_back();
 

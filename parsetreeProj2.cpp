@@ -12,14 +12,16 @@ int main()
 {
 	queue<string> input;
 	input.push("%%");
-	input.push("a");
-	input.push("+");
-	input.push("b");
+	input.push("int");
+	input.push("identifer");
+	input.push(";");
+	input.push("int");
+	input.push("identifer");
 	input.push(";");
 
-	//SyntacticalAnalyzer sa(input);
+	SyntacticalAnalyzer sa(input);
 	
-	//sa.analyze();
+	sa.analyze();
 	
     return 0;
 }
