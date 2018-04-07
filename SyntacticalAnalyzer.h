@@ -6,7 +6,6 @@
 #include <string>
 #include <vector>
 #include <unordered_map>
-#include "stdafx.h"
 
 using std::stack;
 using std::queue;
@@ -28,8 +27,9 @@ struct productionSet
 
 class SyntacticalAnalyzer
 {
+
 	private:
-		unordered_map<productionSet, vector<string>> table;
+		unordered_map<string, vector<string>> table;
 		stack<string> tableStack;	//Needs to be initalized with $Rat18s
 		queue<string> inputQ;		//Needs to be but at back of queue will be done in overloaded constructor
 		
