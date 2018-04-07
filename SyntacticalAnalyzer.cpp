@@ -526,7 +526,17 @@ void SyntacticalAnalyzer::createTable()
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
+/*#pragma region added not sure if works
+	//;
+	production.terminal = ";";
+	table_key = production.production + "," + production.terminal;
 
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+#pragma endregion*/
 
 #pragma endregion
 
@@ -2073,6 +2083,8 @@ void SyntacticalAnalyzer::analyze()
 
 		vector<string> cellVector = got->second;
 
+		int cellSize = cellVector.size();
+
 		//if the string vector is empty we simply pop off the an item in the stack
 		if (cellVector[0] == "<Empty>")
 		{
@@ -2084,13 +2096,19 @@ void SyntacticalAnalyzer::analyze()
 		}
 		else
 		{
-			if (cellVector.front() == this->inputQ.front() && cellVector.size() ==1)
+			if (cellVector.front() == this->inputQ.front())
 			{
 
 
 				cout << this->tableStack.top() << endl;
 				this->tableStack.pop();
-				tableStack.push(cellVector.back());
+				for (int i = cellVector.size(); i > 0; i--)
+				{
+
+					tableStack.push(cellVector.back());
+					cellVector.pop_back();
+
+				}
 				continue;
 
 
@@ -2098,7 +2116,7 @@ void SyntacticalAnalyzer::analyze()
 			//this handles pushing thing from the table to the stack in proper order
 			for (int i = cellVector.size(); i > 0; i--)
 			{
-				if (tableStack.top() != "$" && i < 1)
+				if (tableStack.top() != "$" && i == cellSize)
 				{
 					cout << this->tableStack.top() << endl;
 					tableStack.pop();	//pops production that it finds
