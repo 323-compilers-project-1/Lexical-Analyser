@@ -28,7 +28,7 @@ queue<string> inputQ;		//Needs to be but at back of queue will be done in overlo
 
 void SyntacticalAnalyzer::createTable()
 {
-	
+
 
 #pragma region Rat18s
 
@@ -37,7 +37,7 @@ void SyntacticalAnalyzer::createTable()
 	productionSet production;
 	production.production = "<Rat18s>";
 	production.terminal = "%%";
-	string table_key = "[" + production.production + "," + production.terminal + "]";
+	string table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Opt Function Definitions>");
 	tablePos.push_back("%%");
@@ -63,7 +63,7 @@ void SyntacticalAnalyzer::createTable()
 	//%%
 	production.production = "<Opt Function Definitions>";
 	production.terminal = "%%";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -77,7 +77,7 @@ void SyntacticalAnalyzer::createTable()
 	//Function
 	production.production = "<Function Definitions>";
 	production.terminal = "function";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Function>");
 	tablePos.push_back("<Function Definitions Prime>");
@@ -92,7 +92,7 @@ void SyntacticalAnalyzer::createTable()
 	//%%
 	production.production = "<Function Definitions Prime>";
 	production.terminal = "%%";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -101,7 +101,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//function
 	production.terminal = "function";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Function>");
 	tablePos.push_back("<Function Definitions Prime>");
@@ -118,7 +118,7 @@ void SyntacticalAnalyzer::createTable()
 	//function
 	production.production = "<Function>";
 	production.terminal = "function";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("function");
 	tablePos.push_back("identifer");
@@ -140,7 +140,7 @@ void SyntacticalAnalyzer::createTable()
 	// ]
 	production.production = "<Opt Parameter List>";
 	production.terminal = "]";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -149,7 +149,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// identifer
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Parameter List>");
 
@@ -165,7 +165,7 @@ void SyntacticalAnalyzer::createTable()
 	// identifer
 	production.production = "<Parameter List>";
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Parameter>");
 	tablePos.push_back("<Parameter List Prime>");
@@ -180,7 +180,7 @@ void SyntacticalAnalyzer::createTable()
 	// ]
 	production.production = "<Parameter List Prime>";
 	production.terminal = "]";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -189,7 +189,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// ,
 	production.terminal = ",";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back(",");
 	tablePos.push_back("<Parameter List>");
@@ -205,7 +205,7 @@ void SyntacticalAnalyzer::createTable()
 	//identifer
 	production.production = "<Parameter>";
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<IDs>");
 	tablePos.push_back(":");
@@ -221,7 +221,7 @@ void SyntacticalAnalyzer::createTable()
 	//int
 	production.production = "<Qualifier>";
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("int");
 
@@ -230,7 +230,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//boolean
 	production.terminal = "boolean";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("boolean");
 
@@ -239,7 +239,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("real");
 
@@ -253,7 +253,7 @@ void SyntacticalAnalyzer::createTable()
 	// {
 	production.production = "<Body>";
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("{");
 	tablePos.push_back("<Statement List>");
@@ -271,7 +271,7 @@ void SyntacticalAnalyzer::createTable()
 	//int
 	production.production = "<Opt Declaration List>";
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration List>");
 
@@ -280,7 +280,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//boolean
 	production.terminal = "boolean";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration List>");
 
@@ -289,7 +289,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration List>");
 
@@ -298,7 +298,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// {
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -308,7 +308,7 @@ void SyntacticalAnalyzer::createTable()
 	// identifer
 	production.terminal = "identifer";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -316,7 +316,7 @@ void SyntacticalAnalyzer::createTable()
 	// if
 	production.terminal = "if";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -324,7 +324,7 @@ void SyntacticalAnalyzer::createTable()
 	// endif
 	production.terminal = "endif";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -332,7 +332,7 @@ void SyntacticalAnalyzer::createTable()
 	// return
 	production.terminal = "return";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -340,7 +340,7 @@ void SyntacticalAnalyzer::createTable()
 	// put
 	production.terminal = "put";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -348,7 +348,7 @@ void SyntacticalAnalyzer::createTable()
 	// get
 	production.terminal = "get";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -356,7 +356,7 @@ void SyntacticalAnalyzer::createTable()
 	// while
 	production.terminal = "while";
 	tablePos.push_back("<Empty>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -372,7 +372,7 @@ void SyntacticalAnalyzer::createTable()
 	//int
 	production.production = "<Declaration List>";
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration>");
 	tablePos.push_back("<Declaration List Prime>");
@@ -382,7 +382,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//boolean
 	production.terminal = "boolean";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration>");
 	tablePos.push_back("<Declaration List Prime>");
@@ -392,7 +392,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Declaration>");
 	tablePos.push_back("<Declaration List Prime>");
@@ -410,7 +410,7 @@ void SyntacticalAnalyzer::createTable()
 	// {
 	production.production = "<Declaration List Prime>";
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -423,14 +423,14 @@ void SyntacticalAnalyzer::createTable()
 	tablePos.push_back(";");
 	tablePos.push_back("<Declaration>");
 	tablePos.push_back("<Declaration List Prime>");
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
 	// identifer
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -439,7 +439,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//if
 	production.terminal = "if";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -448,7 +448,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//endif
 	production.terminal = "endif";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -457,7 +457,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//return
 	production.terminal = "return";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -466,7 +466,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//put
 	production.terminal = "put";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -475,7 +475,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//get
 	production.terminal = "get";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -484,7 +484,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//while
 	production.terminal = "while";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -498,7 +498,7 @@ void SyntacticalAnalyzer::createTable()
 	//int
 	production.production = "<Declaration>";
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Qualifier>");
 	tablePos.push_back("<IDs>");
@@ -508,7 +508,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//boolean
 	production.terminal = "boolean";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Qualifier>");
 	tablePos.push_back("<IDs>");
@@ -518,7 +518,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Qualifier>");
 	tablePos.push_back("<IDs>");
@@ -534,7 +534,7 @@ void SyntacticalAnalyzer::createTable()
 	//identifier
 	production.production = "<IDs>";
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("identifer");
 	tablePos.push_back("<IDs Prime>");
@@ -551,7 +551,7 @@ void SyntacticalAnalyzer::createTable()
 	//;
 	production.production = "<IDs Prime>";
 	production.terminal = ";";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -560,7 +560,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// , 
 	production.terminal = ",";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back(",");
 	tablePos.push_back("identifer");
@@ -571,7 +571,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// )
 	production.terminal = ")";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -586,7 +586,7 @@ void SyntacticalAnalyzer::createTable()
 	// {
 	production.production = "<Statement List>";
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -596,7 +596,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifer
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -606,7 +606,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//if
 	production.terminal = "if";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -616,7 +616,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//endif
 	production.terminal = "endif";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -626,7 +626,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//return
 	production.terminal = "return";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -636,7 +636,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//put
 	production.terminal = "put";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -646,7 +646,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//get
 	production.terminal = "get";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -656,7 +656,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//while
 	production.terminal = "while";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -673,7 +673,7 @@ void SyntacticalAnalyzer::createTable()
 	// {
 	production.production = "<Statement List Prime>";
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -684,7 +684,7 @@ void SyntacticalAnalyzer::createTable()
 	// }
 	production.production = "<Statement List Prime>";
 	production.terminal = "}";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -693,7 +693,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifer
 	production.terminal = "identifer";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -703,7 +703,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//if
 	production.terminal = "if";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -713,7 +713,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//endif
 	production.terminal = "endif";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -723,7 +723,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//return
 	production.terminal = "return";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -733,7 +733,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//put
 	production.terminal = "put";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -743,7 +743,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//get
 	production.terminal = "get";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -753,7 +753,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//while
 	production.terminal = "while";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
@@ -763,7 +763,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// $
 	production.terminal = "$";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -777,7 +777,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//{
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Compound>");
 
@@ -786,7 +786,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Assign>");
 
@@ -795,7 +795,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//if
 	production.terminal = "if";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<If>");
 
@@ -804,7 +804,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//return
 	production.terminal = "return";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Return>");
 
@@ -813,7 +813,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//put
 	production.terminal = "put";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Print>");
 
@@ -822,7 +822,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//get
 	production.terminal = "get";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Scan>");
 
@@ -831,7 +831,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//while
 	production.terminal = "while";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<While>");
 
@@ -845,7 +845,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//{
 	production.terminal = "{";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("{");
 	tablePos.push_back("<Statement List>");
@@ -860,7 +860,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("identifier");
 	tablePos.push_back("=");
@@ -876,7 +876,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "if";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("if");
 	tablePos.push_back("(");
@@ -894,7 +894,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//endif
 	production.terminal = "endif";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("endif");
 
@@ -903,7 +903,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//else
 	production.terminal = "else";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("else");
 	tablePos.push_back("<Statement>");
@@ -918,7 +918,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//return	
 	production.terminal = "return";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("return");
 	tablePos.push_back("<Return Prime>");
@@ -932,7 +932,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int	
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -942,7 +942,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -960,7 +960,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -970,7 +970,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -980,7 +980,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -990,7 +990,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -1000,7 +1000,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back(";");
@@ -1014,7 +1014,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//put
 	production.terminal = "put";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("put");
 	tablePos.push_back("(");
@@ -1031,7 +1031,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//get
 	production.terminal = "get";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("get");
 	tablePos.push_back("(");
@@ -1048,7 +1048,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//while
 	production.terminal = "while";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("while");
 	tablePos.push_back("(");
@@ -1065,7 +1065,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1076,7 +1076,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1087,7 +1087,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1098,7 +1098,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1109,7 +1109,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1120,7 +1120,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1131,7 +1131,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Expression>");
 	tablePos.push_back("<Relop>");
@@ -1146,7 +1146,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//==
 	production.terminal = "==";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("==");
 
@@ -1155,7 +1155,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//^=
 	production.terminal = "^=";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("^=");
 
@@ -1164,7 +1164,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//>
 	production.terminal = ">";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back(">");
 
@@ -1173,7 +1173,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//<
 	production.terminal = "<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<");
 
@@ -1182,7 +1182,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=<
 	production.terminal = "=<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("=<");
 
@@ -1191,7 +1191,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=>
 	production.terminal = "=>";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("=>");
 
@@ -1204,7 +1204,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1214,7 +1214,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1224,7 +1224,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1234,7 +1234,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1244,7 +1244,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1254,7 +1254,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1264,7 +1264,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
 	tablePos.push_back("Expression Prime");
@@ -1278,7 +1278,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.terminal = ";";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1287,7 +1287,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//)
 	production.terminal = ")";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1296,7 +1296,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//==
 	production.terminal = "==";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1305,7 +1305,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//^=
 	production.terminal = "^=";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1314,7 +1314,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//>
 	production.terminal = ">";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1323,7 +1323,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//<
 	production.terminal = "<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1332,7 +1332,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=<
 	production.terminal = "=<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1341,7 +1341,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=>
 	production.terminal = "=>";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1350,7 +1350,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//+
 	production.terminal = "+";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("+");
 	tablePos.push_back("<Term>");
@@ -1360,7 +1360,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//+
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("-");
 	tablePos.push_back("<Term>");
@@ -1375,7 +1375,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1385,7 +1385,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1395,7 +1395,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1405,7 +1405,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1415,7 +1415,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1425,7 +1425,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1435,7 +1435,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Prime>");
@@ -1450,7 +1450,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.terminal = ";";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1459,7 +1459,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//)
 	production.terminal = ")";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1468,7 +1468,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//==
 	production.terminal = "==";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1477,7 +1477,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//^=
 	production.terminal = "^=";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1486,7 +1486,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//>
 	production.terminal = ">";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1495,7 +1495,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//<
 	production.terminal = "<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1504,7 +1504,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=<
 	production.terminal = "=<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1513,7 +1513,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=>
 	production.terminal = "=>";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1522,7 +1522,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//+
 	production.terminal = "+";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1531,7 +1531,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1540,7 +1540,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//*
 	production.terminal = "*";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term Double Prime>");
 
@@ -1549,7 +1549,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// /
 	production.terminal = "/";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term Triple Prime>");
 
@@ -1563,7 +1563,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.terminal = ";";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1572,7 +1572,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//)
 	production.terminal = ")";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1581,7 +1581,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//==
 	production.terminal = "==";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1590,7 +1590,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//^=
 	production.terminal = "^=";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1599,7 +1599,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//>
 	production.terminal = ">";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1608,7 +1608,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//<
 	production.terminal = "<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1617,7 +1617,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=<
 	production.terminal = "=<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1626,7 +1626,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=>
 	production.terminal = "=>";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1635,7 +1635,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//+
 	production.terminal = "+";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1644,7 +1644,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1653,7 +1653,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//*
 	production.terminal = "*";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("*");
 	tablePos.push_back("<Factor>");
@@ -1669,7 +1669,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.terminal = ";";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1678,7 +1678,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//)
 	production.terminal = ")";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1687,7 +1687,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//==
 	production.terminal = "==";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1696,7 +1696,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//^=
 	production.terminal = "^=";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1705,7 +1705,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//>
 	production.terminal = ">";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1714,7 +1714,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//<
 	production.terminal = "<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1723,7 +1723,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=<
 	production.terminal = "=<";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1732,7 +1732,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//=>
 	production.terminal = "=>";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1741,7 +1741,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//+
 	production.terminal = "+";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1750,7 +1750,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1759,7 +1759,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// /
 	production.terminal = "/";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Triple Prime>");
@@ -1773,7 +1773,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1782,7 +1782,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1791,7 +1791,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1800,7 +1800,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1809,7 +1809,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//-
 	production.terminal = "-";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("-");
 	tablePos.push_back("<Primary>");
@@ -1819,7 +1819,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1828,7 +1828,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Primary>");
 
@@ -1841,7 +1841,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//int
 	production.terminal = "int";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("int");
 
@@ -1850,7 +1850,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//real
 	production.terminal = "real";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("real");
 
@@ -1859,7 +1859,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.terminal = "identifier";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("identifier");
 	tablePos.push_back("<Primary Prime>");
@@ -1869,7 +1869,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("(");
 	tablePos.push_back("<Expression>");
@@ -1880,7 +1880,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//*
 	production.terminal = "*";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1889,7 +1889,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// /
 	production.terminal = "/";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1898,7 +1898,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//true
 	production.terminal = "true";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("true");
 
@@ -1907,7 +1907,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//false
 	production.terminal = "false";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("false");
 
@@ -1921,7 +1921,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//(
 	production.terminal = "(";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("(");
 	tablePos.push_back("<IDs>");
@@ -1932,7 +1932,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//*
 	production.terminal = "*";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1941,7 +1941,7 @@ void SyntacticalAnalyzer::createTable()
 
 	// /
 	production.terminal = "/";
-	table_key = "[" + production.production + "," + production.terminal + "]";
+	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
 
@@ -1949,6 +1949,7 @@ void SyntacticalAnalyzer::createTable()
 	tablePos.clear();
 #pragma endregion
 }
+
 
 
 SyntacticalAnalyzer::SyntacticalAnalyzer()
@@ -1959,12 +1960,12 @@ SyntacticalAnalyzer::SyntacticalAnalyzer()
 	tableStack.push("<Rat18s>");
 
 
-		//Might not have to do this
-		//tableStack.push("Rat18s");
+	//Might not have to do this
+	//tableStack.push("Rat18s");
 
 	this->inputQ.push("$");
 
-	this->createTable(); 
+	this->createTable();
 
 }
 
@@ -1990,11 +1991,43 @@ SyntacticalAnalyzer::SyntacticalAnalyzer(queue<string> inputQ)
 
 #pragma  region Table Traversing
 
+productionSet SyntacticalAnalyzer::getProductionSet(string input)
+{
+	string output;
+
+	productionSet production;
+
+	//reading until comma
+	int i = 0;
+	while (input[i] != ',')
+	{
+		output.push_back(input[i]);
+		i++;
+
+	}
+	//moving past the comma
+	i++;
+	production.production = output;
+	output.clear();
+
+	while (i < input.size())
+	{
+		output.push_back(input[i]);
+		i++;
+
+	}
+	production.terminal = output;
+	output.clear(); 
+
+	return production;
+}
+
+
 //called in main performs all output and stack manipuliation
 void SyntacticalAnalyzer::analyze()
 {
 	//creating iterator in order to use find functions for map
-	unordered_map<productionSet, vector<string>>::iterator got;
+	unordered_map<string, vector<string>>::iterator got;
 
 	productionSet production;
 
@@ -2023,8 +2056,10 @@ void SyntacticalAnalyzer::analyze()
 		production.production = tableStack.top();
 		production.terminal = this->inputQ.front();
 
-		got = table.find(production);
-		production.production = got->first.production;
+		string prod = production.production + "," + production.terminal; 
+
+		got = table.find(prod);
+		production = getProductionSet(got->first);
 
 
 		vector<string> cellVector = got->second;
@@ -2032,7 +2067,7 @@ void SyntacticalAnalyzer::analyze()
 		//if the string vector is empty we simply pop off the an item in the stack
 		if (cellVector[0] == "<Empty>")
 		{
-			
+
 			//might need to output rule here
 			this->tableStack.pop();
 			continue;
