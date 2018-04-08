@@ -18,6 +18,9 @@ int main()
 	input.push("int");
 	input.push("identifer");
 	input.push(";");
+	input.push("{");
+	input.push("}");
+
 
 	SyntacticalAnalyzer sa(input);
 	

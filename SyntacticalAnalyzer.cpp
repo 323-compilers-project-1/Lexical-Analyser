@@ -507,6 +507,15 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
+	// {
+	production.terminal = "{";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
 	//boolean
 	production.terminal = "boolean";
 	table_key = production.production + "," + production.terminal; 
@@ -601,6 +610,15 @@ void SyntacticalAnalyzer::createTable()
 
 	tablePos.push_back("<Statement>");
 	tablePos.push_back("<Statement List Prime>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	// }
+	production.terminal = "}";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
