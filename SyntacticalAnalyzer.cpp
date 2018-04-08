@@ -52,7 +52,10 @@ void SyntacticalAnalyzer::createTable()
 	production.terminal = "function";
 	table_key = production.production + "," + production.terminal;
 
-	tablePos.push_back("<Function Definitions>");
+	tablePos.push_back("<Opt Function Definitions>");
+	tablePos.push_back("%%");
+	tablePos.push_back("<Opt Declaration List>");
+	tablePos.push_back("<Statement List>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -68,6 +71,15 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//%%function
+	production.terminal = "function";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Function Definitions>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -112,7 +124,15 @@ void SyntacticalAnalyzer::createTable()
 	tablePos.clear();
 
 
+	//ADDED
+	//$
+	production.terminal = "$";
+	table_key = production.production + "," + production.terminal;
 
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
 #pragma endregion
 
 #pragma region Function
@@ -1586,6 +1606,15 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
+	// ;
+	production.terminal = ";";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Term Triple Prime>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
 #pragma endregion
 
 #pragma region Term Double Prime
@@ -1971,7 +2000,37 @@ void SyntacticalAnalyzer::createTable()
 
 	// /
 	production.terminal = "/";
-	table_key = production.production + "," + production.terminal; 
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+
+
+	//ADDED
+	//+
+	production.terminal = "+";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//-
+	production.terminal = "-";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//;
+	production.terminal = ";";
+	table_key = production.production + "," + production.terminal;
 
 	tablePos.push_back("<Empty>");
 
