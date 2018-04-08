@@ -35,8 +35,8 @@ private:
 
 								//used by constructors
 	void createTable();
-
-
+	void SyntacticalAnalyzer::print_production(stack<string> tableStack, queue<string> input, unordered_map<string, vector<string>> table);
+	
 	productionSet getProductionSet(string input);
 
 

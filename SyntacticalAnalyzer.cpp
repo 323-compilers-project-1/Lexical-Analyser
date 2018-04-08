@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SyntacticalAnalyzer.h"
 #include <unordered_map>
 #include <string>
@@ -33,9 +32,10 @@ void SyntacticalAnalyzer::createTable()
 
 #pragma region Rat18s
 
-	//%%
 	vector<string> tablePos;
 	productionSet production;
+
+	//%%
 	production.production = "<Rat18s>";
 	production.terminal = "%%";
 	string table_key = production.production + "," + production.terminal; 
@@ -50,6 +50,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//function
 	production.terminal = "function";
+	table_key = production.production + "," + production.terminal;
 
 	tablePos.push_back("<Function Definitions>");
 
@@ -122,7 +123,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("function");
-	tablePos.push_back("identifer");
+	tablePos.push_back("identifier");
 	tablePos.push_back("[");
 	tablePos.push_back("<Opt Parameter List>");
 	tablePos.push_back("]");
@@ -148,8 +149,8 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
-	// identifer
-	production.terminal = "identifer";
+	// identifier
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Parameter List>");
@@ -163,9 +164,9 @@ void SyntacticalAnalyzer::createTable()
 
 #pragma region Parameter List
 
-	// identifer
+	// identifier
 	production.production = "<Parameter List>";
-	production.terminal = "identifer";
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Parameter>");
@@ -203,9 +204,9 @@ void SyntacticalAnalyzer::createTable()
 
 #pragma region Parameter
 
-	//identifer
+	//identifier
 	production.production = "<Parameter>";
-	production.terminal = "identifer";
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<IDs>");
@@ -306,8 +307,8 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
-	// identifer
-	production.terminal = "identifer";
+	// identifier
+	production.terminal = "identifier";
 	tablePos.push_back("<Empty>");
 	table_key = production.production + "," + production.terminal; 
 
@@ -429,8 +430,8 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
-	// identifer
-	production.terminal = "identifer";
+	// identifier
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
@@ -553,10 +554,10 @@ void SyntacticalAnalyzer::createTable()
 
 	//identifier
 	production.production = "<IDs>";
-	production.terminal = "identifer";
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
-	tablePos.push_back("identifer");
+	tablePos.push_back("identifier");
 	tablePos.push_back("<IDs Prime>");
 
 	table.emplace(table_key, tablePos);
@@ -570,7 +571,7 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.production = "<IDs Prime>";
-	production.terminal = ";";
+	production.terminal = ":";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Empty>");
@@ -583,7 +584,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back(",");
-	tablePos.push_back("identifer");
+	tablePos.push_back("identifier");
 	tablePos.push_back("<IDs Prime>");
 
 	table.emplace(table_key, tablePos);
@@ -623,8 +624,8 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
-	//identifer
-	production.terminal = "identifer";
+	//identifier
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
@@ -720,8 +721,8 @@ void SyntacticalAnalyzer::createTable()
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
 
-	//identifer
-	production.terminal = "identifer";
+	//identifier
+	production.terminal = "identifier";
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Statement>");
@@ -1236,7 +1237,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1246,7 +1247,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1256,7 +1257,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1266,7 +1267,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1276,7 +1277,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1286,7 +1287,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1296,7 +1297,7 @@ void SyntacticalAnalyzer::createTable()
 	table_key = production.production + "," + production.terminal; 
 
 	tablePos.push_back("<Term>");
-	tablePos.push_back("Expression Prime");
+	tablePos.push_back("<Expression Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -2056,7 +2057,7 @@ productionSet SyntacticalAnalyzer::getProductionSet(string input)
 void SyntacticalAnalyzer::analyze()
 {
 	//creating iterator in order to use find functions for map
-	unordered_map<string, vector<string>>::iterator got;
+	unordered_map<string, vector<string>>::const_iterator got;
 
 	productionSet production;
 
@@ -2065,26 +2066,23 @@ void SyntacticalAnalyzer::analyze()
 	while (this->tableStack.top() != "$")
 	{
 		//Simply outputs first
+		productionSet production;
 		production.production = tableStack.top();
+		production.terminal = inputQ.front();
 		if (this->tableStack.top() == "<Rat18s>")
 		{
-			cout << this->tableStack.top() << endl;
+			print_production(tableStack, inputQ, table);
 			this->tableStack.pop();
-
 		}
 		else if (this->tableStack.top() == this->inputQ.front())
 		{
-			cout << this->tableStack.top() << endl;
+			cout << this->tableStack.top();
+			cout << endl;
 			this->tableStack.pop();
 			this->inputQ.pop();
 			continue;
-
-
 		}
-#pragma region pushing to stack
-
-
-	
+#pragma region pushing to stack	
 		production.terminal = this->inputQ.front();
 
 		string prod = production.production + "," + production.terminal; 
@@ -2093,11 +2091,9 @@ void SyntacticalAnalyzer::analyze()
 		//production = getProductionSet(got->first);
 		if (got == table.end())
 		{
-
-			cout << prod << "not found" << endl;
+			cout << prod << " not found" << endl;
 			return;
 		}
-
 
 		vector<string> cellVector = got->second;
 
@@ -2106,43 +2102,34 @@ void SyntacticalAnalyzer::analyze()
 		//if the string vector is empty we simply pop off the an item in the stack
 		if (cellVector[0] == "<Empty>")
 		{
-
 			//might need to output rule here
 			this->tableStack.pop();
 			continue;
-
 		}
 		else
 		{
 			if (cellVector.front() == this->inputQ.front())
 			{
-
-
-				cout << this->tableStack.top() << endl;
+				print_production(tableStack, inputQ, table);
 				this->tableStack.pop();
 				for (int i = cellVector.size(); i > 0; i--)
 				{
-
 					tableStack.push(cellVector.back());
 					cellVector.pop_back();
-
 				}
 				continue;
-
-
 			}
 			//this handles pushing thing from the table to the stack in proper order
 			for (int i = cellVector.size(); i > 0; i--)
 			{
 				if (tableStack.top() != "$" && i == cellSize)
 				{
-					cout << this->tableStack.top() << endl;
+					print_production(tableStack, inputQ, table);
 					tableStack.pop();	//pops production that it finds
 				}
 				
 				tableStack.push(cellVector.back());
 				cellVector.pop_back();
-
 			}
 
 		}
@@ -2157,14 +2144,11 @@ void SyntacticalAnalyzer::analyze()
 
 	if (tableStack.top() == inputQ.front())
 	{
-
 		cout << "Correct syntax" << endl;
-
 	}
 	else
 	{
 		cout << "Incorrect input" << endl;
-
 	}
 
 
@@ -2174,3 +2158,20 @@ void SyntacticalAnalyzer::analyze()
 }
 
 #pragma endregion
+
+void SyntacticalAnalyzer::print_production(stack<string> tableStack, queue<string> input, unordered_map<string, vector<string>> table)
+{
+	productionSet production;
+	production.production = tableStack.top();
+	production.terminal = input.front();
+	{
+		cout << tableStack.top() << " => ";
+		string prod = production.production + "," + input.front();
+		vector<string> to_prod = table[prod];
+		for (int i = 0; i < to_prod.size(); i++)
+		{
+			cout << to_prod[i];
+		}
+		cout << endl;
+	}
+}
