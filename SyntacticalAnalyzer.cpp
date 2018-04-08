@@ -122,17 +122,6 @@ void SyntacticalAnalyzer::createTable()
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
-
-
-	//ADDED
-	//$
-	//production.terminal = "$";
-	//table_key = production.production + "," + production.terminal;
-
-	//tablePos.push_back("<Empty>");
-
-	//table.emplace(table_key, tablePos);
-	//tablePos.clear();
 #pragma endregion
 
 #pragma region Function
@@ -443,8 +432,6 @@ void SyntacticalAnalyzer::createTable()
 	production.terminal = ";";
 
 	tablePos.push_back(";");
-	tablePos.push_back("<Declaration>");
-	tablePos.push_back("<Declaration List Prime>");
 	table_key = production.production + "," + production.terminal; 
 
 	table.emplace(table_key, tablePos);
@@ -589,7 +576,7 @@ void SyntacticalAnalyzer::createTable()
 
 #pragma region IDs Prime
 
-	//;
+	//:
 	production.production = "<IDs Prime>";
 	production.terminal = ":";
 	table_key = production.production + "," + production.terminal; 
@@ -613,6 +600,16 @@ void SyntacticalAnalyzer::createTable()
 	// )
 	production.terminal = ")";
 	table_key = production.production + "," + production.terminal; 
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//;
+	production.production = "<IDs Prime>";
+	production.terminal = ";";
+	table_key = production.production + "," + production.terminal;
 
 	tablePos.push_back("<Empty>");
 
@@ -1068,7 +1065,7 @@ void SyntacticalAnalyzer::createTable()
 
 	tablePos.push_back("put");
 	tablePos.push_back("(");
-	tablePos.push_back("Expression");
+	tablePos.push_back("<Expression>");
 	tablePos.push_back(")");
 	tablePos.push_back(";");
 
@@ -1985,6 +1982,15 @@ void SyntacticalAnalyzer::createTable()
 	tablePos.push_back("(");
 	tablePos.push_back("<IDs>");
 	tablePos.push_back(")");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//)
+	production.terminal = ")";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
