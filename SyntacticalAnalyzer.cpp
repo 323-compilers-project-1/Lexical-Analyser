@@ -126,13 +126,13 @@ void SyntacticalAnalyzer::createTable()
 
 	//ADDED
 	//$
-	production.terminal = "$";
-	table_key = production.production + "," + production.terminal;
+	//production.terminal = "$";
+	//table_key = production.production + "," + production.terminal;
 
-	tablePos.push_back("<Empty>");
+	//tablePos.push_back("<Empty>");
 
-	table.emplace(table_key, tablePos);
-	tablePos.clear();
+	//table.emplace(table_key, tablePos);
+	//tablePos.clear();
 #pragma endregion
 
 #pragma region Function
