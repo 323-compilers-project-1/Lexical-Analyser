@@ -1,7 +1,6 @@
 
 // LexicalAnalyzer.cpp : Defines the entry point for the console application.
 //
-#include "stdafx.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -74,12 +73,6 @@ int main()
 	int source_iter = 0;
 	string word_to_lex;
 
-	string output_name;
-	cout << "Output File Name: ";
-	cin >> output_name;
-	ofstream output_file;
-	output_file.open(output_name, ios::out | std::ofstream::trunc);
-
 	queue<string> inputQ;
 
 	while (source_iter <  source_string.length())
@@ -105,7 +98,7 @@ int main()
 					else
 						inputQ.push("int");
 				}
-				else if (tmp.lexeme == "int")
+				else if (tmp.token == "integer")
 				{
 					inputQ.push("int");
 				}
@@ -123,6 +116,8 @@ int main()
 		}
 		catch (...)
 		{
+			ofstream output_file;
+			output_file.open("Error Log", ios::out | std::ofstream::trunc);
 			output_file << "Compiler Error: Check Source for Syntax Errors";
 			output_file.close();
 			exit(1);
@@ -134,7 +129,6 @@ int main()
 
 	sa.analyze();
 
-	output_file.close();
 	return 0;
 }
 

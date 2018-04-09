@@ -12,7 +12,7 @@ function sub$ [x:int, y:int]
     int x, y, add, sub, result;
 
     get (x, y);
-    add = add$ (x, y));
+    add = add$ (x, y);
     sub = sub$ (x, y);
 
     put ((add + sub) + (add - sub));
@@ -23,3 +23,19 @@ function sub$ [x:int, y:int]
         put (i);
         i = i + 1;
       }
+
+      if (x == y)
+      {
+        put (i);
+      }
+      else
+      {
+        put (y);
+      }
+      endif
+      if (x == y)
+      {
+        put (i);
+      }
+      endif
+   
