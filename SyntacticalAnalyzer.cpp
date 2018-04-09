@@ -2096,6 +2096,24 @@ void SyntacticalAnalyzer::createTable()
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
+
+	//int
+	production.terminal = "int";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//real
+	production.terminal = "real";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
 #pragma endregion
 }
 
