@@ -92,23 +92,33 @@ int main()
 		{
 			tokenList = lexer(word_to_lex);
 
-			Token tmp = tokenList.front();
 			
-			char dSign = '$';
-			if (tmp.token == "identifier" || (tmp.lexeme).back() == dSign)
+			
+			while (tokenList.size() > 0)
 			{
-				inputQ.push(tmp.token);
+				Token tmp = tokenList.front();
+				char dSign = '$';
+				if (tmp.token == "identifier" || (tmp.lexeme).back() == dSign)
+				{
+					if (tmp.lexeme != "int")
+						inputQ.push(tmp.token);
+					else
+						inputQ.push("int");
+				}
+				else if (tmp.lexeme == "int")
+				{
+					inputQ.push("int");
+				}
+				else if (tmp.token == "real")
+				{
+					inputQ.push(tmp.token);
+				}
+				else
+					inputQ.push(tmp.lexeme);
+
+				tokenList.pop_front();
 			}
-			else if (tmp.token == "integer")
-			{
-				inputQ.push("int");
-			}
-			else if (tmp.token == "real")
-			{
-				inputQ.push(tmp.token);
-			}
-			else
-				inputQ.push(tmp.lexeme);
+		
 
 		}
 		catch (...)
@@ -118,13 +128,6 @@ int main()
 			exit(1);
 		}
 
-		while (tokenList.size() != 0)
-		{
-			Token tmp = tokenList.front();
-			tokenList.pop_front();
-			output_file << tmp.token + "" + tmp.lexeme + "\n";
-
-		}
 	}
 
 	SyntacticalAnalyzer sa(inputQ);
