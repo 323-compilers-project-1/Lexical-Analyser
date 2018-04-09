@@ -880,7 +880,7 @@ void SyntacticalAnalyzer::createTable()
 	production.terminal = "while";
 	table_key = production.production + "," + production.terminal; 
 
-	tablePos.push_back("<While>");
+	tablePos.push_back("<Scan>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -2036,6 +2036,60 @@ void SyntacticalAnalyzer::createTable()
 
 	//;
 	production.terminal = ";";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//==
+	production.terminal = "==";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//^=
+	production.terminal = "^=";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//>
+	production.terminal = ">";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//<
+	production.terminal = "<";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//=<
+	production.terminal = "=<";
+	table_key = production.production + "," + production.terminal;
+
+	tablePos.push_back("<Empty>");
+
+	table.emplace(table_key, tablePos);
+	tablePos.clear();
+
+	//=>
+	production.terminal = "=>";
 	table_key = production.production + "," + production.terminal;
 
 	tablePos.push_back("<Empty>");

@@ -107,19 +107,41 @@ int main()
 	input.push(")");
 	input.push(";");
 
-	input.push("int");
 	input.push("identifier");
+	input.push("=");
+	input.push("int");
 	input.push(";");
 
+	input.push("while");
+	input.push("(");
+	input.push("identifier");
+	input.push("<");
+	input.push("int");
+	input.push(")");
+	input.push("{");
+	input.push("put");
+	input.push("(");
+	input.push("identifier");
+	input.push(")");
+	input.push(";");
+	input.push("identifier");
+	input.push("=");
+	input.push("identifier");
+	input.push("+");
+	input.push("int");
+	input.push(";");
+	input.push("}");
+
+
+
+
 /*
-    int i;
-    i = 0;
     while (i < 10)
       {
         put (i);
         i = i + 1;
       }
-	*/
+*/
 
 
 
