@@ -1713,7 +1713,7 @@ void SyntacticalAnalyzer::createTable()
 
 	tablePos.push_back("*");
 	tablePos.push_back("<Factor>");
-	tablePos.push_back("Term Double Prime");
+	tablePos.push_back("<Term Double Prime>");
 
 	table.emplace(table_key, tablePos);
 	tablePos.clear();
@@ -1817,6 +1817,7 @@ void SyntacticalAnalyzer::createTable()
 	production.terminal = "/";
 	table_key = production.production + "," + production.terminal; 
 
+	tablePos.push_back("/");
 	tablePos.push_back("<Factor>");
 	tablePos.push_back("<Term Triple Prime>");
 
