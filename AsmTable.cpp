@@ -6,17 +6,20 @@
 
 AsmTable::AsmTable(SymbolTable sm)
 {
+	this->sm = sm;
+	this->lexemes = sm.lexemes;
+
 }
 
 #pragma region ASM TABLE generation
 
-list<string> AsmTable::getLine()
+list<string> AsmTable::getLine(char delimiter)
 {
 	list<string>::iterator it = lexemes.begin();
 
 	list<string>::iterator end;
 
-	end = find(this->lexemes.begin(), this->lexemes.end(), ";");
+	end = find(this->lexemes.begin(), this->lexemes.end(), delimiter);
 
 	if (end != this->lexemes.end())
 	{
@@ -37,7 +40,7 @@ list<string> AsmTable::getLine()
 void AsmTable::makeAsmTable()
 {
 	list<string> lineMarker;
-	string delimiters[] = { ";", ")", "{", "}" };
+	
 
 
 

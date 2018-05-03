@@ -29,19 +29,25 @@ struct asmTableInput
 class AsmTable
 {
 public:
-	//asmTable
-	void makeAsmTable();
-	list<string> getLine();
-
+	SymbolTable sm;
 	vector<string> semantics = { "TYPE", "PUSHI", "PUSHM", "POPM", "STDOUT", "STDIN", "ADD", "SUB", "MUL", "DIV", "GRT", "LES", "EQU", "NEQ", "GEQ", "LEQ", "JUMPZ", "JUMP", "LABEL" };
 	list<string>::iterator line;
-	
+
 	vector<asmTableInput> asmTable;
-	
+
 	queue<int> jmpstack;
 	list<string> lexemes;
 
+	//asmTable
 	AsmTable(SymbolTable sm);
+
+	void makeAsmTable();
+	list<string> getLine(char c);
+
+
+
+
+	
 	~AsmTable();
 };
 
